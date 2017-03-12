@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="epossystem.UIMainController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="178.0" layoutY="22.0" prefHeight="72.0" prefWidth="240.0" text="EPOS SYSTEM" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="products" contentDisplay="CENTER" layoutX="54.0" layoutY="127.0" mnemonicParsing="false" onAction="#hanldeProductsButtonAction" prefHeight="44.0" prefWidth="100.0" text="PRODUCTS">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="addProduct" contentDisplay="CENTER" layoutX="247.0" layoutY="127.0" mnemonicParsing="false" onAction="#hanldeAddProductButtonAction" prefHeight="44.0" prefWidth="106.0" text="ADD PRODUCT">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="setting" contentDisplay="CENTER" layoutX="448.0" layoutY="127.0" mnemonicParsing="false" onAction="#hanldeSettingButtonAction" prefHeight="44.0" prefWidth="100.0" text="SETTING">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="stock" contentDisplay="CENTER" layoutX="154.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldeStockButtonAction" prefHeight="44.0" prefWidth="100.0" text="STOCK">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="pos" contentDisplay="CENTER" layoutX="348.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldePoSButtonAction" prefHeight="44.0" prefWidth="100.0" text="POS">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

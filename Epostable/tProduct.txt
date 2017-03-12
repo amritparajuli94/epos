@@ -1,0 +1,22 @@
+create table tProduct (
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
+	name CHAR(30) NOT NULL,
+	price DECIMAL(12,2),
+	PRIMARY KEY (id)
+);
+
+create table tUser (
+	username CHAR(8) NOT NULL,
+	password CHAR(16) NOT NULL,
+	PRIMARY KEY (username)
+);
+
+
+create table tStock (
+	product_id MEDIUMINT NOT NULL,
+	quantity MEDIUMINT NOT NULL,
+	PRIMARY KEY (product_id)
+);
+
+
+connecting to SQL: mysql -u amrit -p

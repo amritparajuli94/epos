@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: grey;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="epossystem.UILoginController">
+   <children>
+      <Button fx:id="login" alignment="CENTER" layoutX="336.0" layoutY="256.0" mnemonicParsing="false" onAction="#hanldeLoginButtonAction" text="Login" />
+      <TextField fx:id="usernameField" layoutX="272.0" layoutY="131.0" />
+      <PasswordField fx:id="passwordField" alignment="BOTTOM_LEFT" layoutX="272.0" layoutY="200.0" />
+      <Label fx:id="wrongPasswordMsg" alignment="CENTER" contentDisplay="CENTER" layoutX="133.0" layoutY="303.0" prefHeight="17.0" prefWidth="368.0" textFill="WHITE" />
+      <Label alignment="CENTER" layoutX="133.0" layoutY="51.0" prefHeight="49.0" prefWidth="368.0" text="Welcome to the System" textAlignment="CENTER" underline="true">
+         <font>
+            <Font name="System Bold Italic" size="33.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="133.0" layoutY="133.0" prefHeight="21.0" prefWidth="95.0" text="USERNAME">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="133.0" layoutY="202.0" prefHeight="17.0" prefWidth="95.0" text="PASSWORD">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
