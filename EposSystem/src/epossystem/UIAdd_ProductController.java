@@ -77,6 +77,9 @@ public class UIAdd_ProductController implements Initializable {
                     addStockStatement.setInt(1, id);
                     addStockStatement.setInt(2, 0);
                     addStockStatement.execute();
+                    
+                    nameField.setText("");
+                    priceField.setText("");
                 }
 
             }
