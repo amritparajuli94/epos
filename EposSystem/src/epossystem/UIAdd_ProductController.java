@@ -43,7 +43,7 @@ public class UIAdd_ProductController implements Initializable {
 
     @FXML
     private TextField priceField;
-    
+
     @FXML
     private Button back;
 
@@ -57,21 +57,36 @@ public class UIAdd_ProductController implements Initializable {
         Connection db;
         try {
             db = eposdb.getDBConnection();
-            System.out.println(name);
-            System.out.println(price);
-            String sql = "insert into tProduct (name, price) values (?, ?)";
-            PreparedStatement preparedStatement = db.prepareStatement(sql);
+            System.out.println("Adding a new product..");
+
+            String addProductSQL = "insert into tProduct (name, price) values (?, ?)";
+            PreparedStatement preparedStatement = db.prepareStatement(addProductSQL, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, name);
             preparedStatement.setDouble(2, price);
-            preparedStatement.execute();
-            System.out.println("Product successfully added.");
+            if (preparedStatement.executeUpdate() == 0) {
+                throw new SQLException("Adding product failed");
+            } else {
+                System.out.println("Product " + name + " with price £" + price + " is added.");
+            }
+            try (ResultSet generatedId = preparedStatement.getGeneratedKeys()) {
+                if (generatedId.next()) {
+                    int id = generatedId.getInt(1);
+                    System.out.println("Generated ID: " + id);
+                    String addStockSQL = "insert into tStock (product_id, quantity) values (?, ?)";
+                    PreparedStatement addStockStatement = db.prepareStatement(addStockSQL);
+                    addStockStatement.setInt(1, id);
+                    addStockStatement.setInt(2, 0);
+                    addStockStatement.execute();
+                }
+
+            }
 
         } catch (SQLException ex) {
             Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
+
     @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
 

@@ -15,5 +15,11 @@
          </font>
       </Label>
       <Button fx:id="back" layoutX="24.0" layoutY="25.0" mnemonicParsing="false" onAction="#hanldeBackButtonAction" text="Back" />
+      <TableView fx:id="productStockList" layoutX="34.0" layoutY="94.0" prefHeight="287.0" prefWidth="170.0">
+        <columns>
+          <TableColumn fx:id="productName" prefWidth="102.0" text="Product Name" />
+          <TableColumn fx:id="currentStock" prefWidth="65.0" text="Quantity" />
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>
