@@ -15,11 +15,13 @@
          </font>
       </Label>
       <Button fx:id="back" layoutX="24.0" layoutY="25.0" mnemonicParsing="false" onAction="#hanldeBackButtonAction" text="Back" />
-      <TableView fx:id="productStockList" layoutX="34.0" layoutY="94.0" prefHeight="287.0" prefWidth="170.0">
+      <TableView fx:id="productStockList" layoutX="112.0" layoutY="101.0" prefHeight="278.0" prefWidth="272.0">
         <columns>
           <TableColumn fx:id="productName" prefWidth="102.0" text="Product Name" />
           <TableColumn fx:id="currentStock" prefWidth="65.0" text="Quantity" />
+          <TableColumn fx:id="updateStock" prefWidth="105.0" text="Update Quantity" />
         </columns>
       </TableView>
+      <Button fx:id="updateQuantity" layoutX="401.0" layoutY="284.0" mnemonicParsing="false" onAction="#handleUpdateQuantityButtonAction" text="Update Quantity" />
    </children>
 </AnchorPane>

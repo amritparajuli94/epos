@@ -11,6 +11,7 @@ import eposdb.EPOSDB;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -27,6 +28,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -44,11 +46,19 @@ public class UIStockController implements Initializable {
     private Button back;
 
     @FXML
+    private Button updateQuantity;
+
+    @FXML
     private TableView<ProductQuantity> productStockList;
     @FXML
     private TableColumn<ProductQuantity, String> productName;
     @FXML
     private TableColumn<ProductQuantity, Integer> currentStock;
+    @FXML
+    private TableColumn<ProductQuantity, TextField> updateStock;
+
+    private ObservableList<ProductQuantity> products;
+    private Connection db;
 
     @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
@@ -59,13 +69,39 @@ public class UIStockController implements Initializable {
         window.show();
     }
 
+    @FXML
+    private void handleUpdateQuantityButtonAction(ActionEvent event) throws SQLException, IOException {
+        for (ProductQuantity p : products) {
+            int currentStock = p.getCurrentStock();
+            int newStock = 0;
+            String updateStockText = p.getUpdateStock().getText();
+            if (!"".equals(updateStockText)) {
+                newStock = Integer.parseInt(p.getUpdateStock().getText());
+            }
+            int updatedStock = currentStock + newStock;
+            int productId = p.getProductId();
+
+            String updateSql = "update tStock set quantity=? where product_id=?";
+            PreparedStatement ps = db.prepareStatement(updateSql);
+            ps.setInt(1, updatedStock);
+            ps.setInt(2, productId);
+            ps.executeUpdate();
+        }
+
+        Stage window = (Stage) updateQuantity.getScene().getWindow();
+        Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIStock.fxml")));
+        window.setScene(main);
+        window.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        ObservableList<ProductQuantity> products = loadProductData();
+        products = loadProductData();
 
         productName.setCellValueFactory(new PropertyValueFactory<ProductQuantity, String>("productName"));
         currentStock.setCellValueFactory(new PropertyValueFactory<ProductQuantity, Integer>("currentStock"));
+        updateStock.setCellValueFactory(new PropertyValueFactory<ProductQuantity, TextField>("updateStock"));
 
         productStockList.getItems().setAll(products);
     }
@@ -75,7 +111,6 @@ public class UIStockController implements Initializable {
         ObservableList<ProductQuantity> products = FXCollections.observableArrayList();
 
         EPOSDB eposdb = new EPOSDB();
-        Connection db;
         try {
             db = eposdb.getDBConnection();
 
