@@ -6,7 +6,9 @@
 package epossystem;
 
 import datamodel.Product;
+import datamodel.ProductQuantity;
 import eposdb.EPOSDB;
+import epossystem.controller.ProductButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -45,7 +47,12 @@ public class UIPosController implements Initializable {
     @FXML private TableView<Product> posProductPriceList;
     @FXML private TableColumn<Product, String> productName;
     @FXML private TableColumn<Product, Double> productPrice;
+    @FXML private TableColumn<ProductButton, Button> productAdd;
      
+    private ObservableList<Product> products;
+   // private ObservableList<ProductButton> add;
+    private Connection db;
+    
      @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
 
@@ -59,9 +66,11 @@ public class UIPosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ObservableList<Product> products = loadProductData();
+         
         
         productName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         productPrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productAdd.setCellValueFactory(new PropertyValueFactory<ProductButton, Button>("add"));
         
         posProductPriceList.getItems().setAll(products);
         // TODO
@@ -72,7 +81,7 @@ public class UIPosController implements Initializable {
         ObservableList<Product> products = FXCollections.observableArrayList();
         
         EPOSDB eposdb = new EPOSDB();
-        Connection db;
+        //Connection db;
         try {
             db = eposdb.getDBConnection();
 

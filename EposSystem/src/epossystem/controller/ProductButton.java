@@ -15,7 +15,18 @@ public class ProductButton extends Button {
     
     private String name = null;
     private double price = 0.0;
-
+    Button addButton;
+    
+    public ProductButton(){
+        this.addButton = new Button();
+    };
+    
+    public Button getaddButton() {
+        return addButton;
+    }
+    public void setaddButton(Button addButton) {
+        this.addButton = addButton;
+    }
     public String getName() {
         return name;
     }
