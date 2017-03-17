@@ -33,7 +33,7 @@ public class UIMainController implements Initializable {
     private Button addProduct;
 
     @FXML
-    private Button setting;
+    private Button addCategory;
 
     @FXML
     private Button stock;
@@ -62,8 +62,8 @@ public class UIMainController implements Initializable {
     @FXML
     private void hanldeSettingButtonAction(ActionEvent event) throws IOException {
 
-        Stage window = (Stage) setting.getScene().getWindow();
-        Scene main = new Scene(FXMLLoader.load(getClass().getResource("UISetting.fxml")));
+        Stage window = (Stage) addCategory.getScene().getWindow();
+        Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIAdd_Category.fxml")));
         window.setScene(main);
         window.show();
 

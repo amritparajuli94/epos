@@ -16,15 +16,12 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private ProductButton productButton;
+    private ProductButton selectProduct;
 
     public Product(int id, String name, double price) {
         this.id = id;
         this.name = name;
         this.price = price;
-        this.productButton = new ProductButton();
-        this.productButton.setName(name);
-        this.productButton.setPrice(price);
     }
 
     public int getId() {
@@ -48,10 +45,10 @@ public class Product {
     }
 
     public ProductButton getProductButton() {
-        return productButton;
+        return selectProduct;
     }
 
     public void setProductButton(ProductButton productButton) {
-        this.productButton = productButton;
+        this.selectProduct = productButton;
     }
 }

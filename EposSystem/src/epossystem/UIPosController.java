@@ -28,8 +28,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 import javafx.collections.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.GridPane;
 
 /**
  * FXML Controller class
@@ -41,19 +43,15 @@ public class UIPosController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    
-    @FXML private Button back;
-    
-    @FXML private TableView<Product> posProductPriceList;
-    @FXML private TableColumn<Product, String> productName;
-    @FXML private TableColumn<Product, Double> productPrice;
-    @FXML private TableColumn<ProductButton, Button> productAdd;
-     
-    private ObservableList<Product> products;
-   // private ObservableList<ProductButton> add;
+    @FXML
+    private Button back;
+
+    @FXML
+    private GridPane posPane;
+
     private Connection db;
-    
-     @FXML
+
+    @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
 
         Stage window = (Stage) back.getScene().getWindow();
@@ -61,25 +59,10 @@ public class UIPosController implements Initializable {
         window.setScene(main);
         window.show();
     }
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<Product> products = loadProductData();
-         
-        
-        productName.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productPrice.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productAdd.setCellValueFactory(new PropertyValueFactory<ProductButton, Button>("add"));
-        
-        posProductPriceList.getItems().setAll(products);
-        // TODO
-    }
-    
-    private ObservableList<Product> loadProductData(){
-        
-        ObservableList<Product> products = FXCollections.observableArrayList();
-        
+
         EPOSDB eposdb = new EPOSDB();
         //Connection db;
         try {
@@ -88,15 +71,23 @@ public class UIPosController implements Initializable {
             String sql = "select * from tproduct order by id;";
             Statement statement = db.createStatement();
             ResultSet rs = statement.executeQuery(sql);
-            
-            while(rs.next()) {
-                products.add(new Product(rs.getInt("id"), rs.getString("name"), rs.getDouble("price")));
+
+            int row = 0;
+            while (rs.next()) {
+                int productId = rs.getInt("id");
+                String productName = rs.getString("name");
+                double productPrice = rs.getDouble("price");
+                
+                Label name = new Label(productName);
+                Label price = new Label(Double.toString(productPrice));
+                ProductButton btn = new ProductButton(productId, productName, productPrice, "Add");
+                posPane.add(name, 0, row);
+                posPane.add(price, 1, row);
+                posPane.add(btn, 2, row);
+                row++;
             }
         } catch (SQLException ex) {
             Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        return products;
     }
-    
 }

@@ -2,6 +2,7 @@ create table tProduct (
 	id MEDIUMINT NOT NULL AUTO_INCREMENT,
 	name CHAR(30) NOT NULL,
 	price DECIMAL(12,2),
+	category_id MEDIUMINT NOT NULL,
 	PRIMARY KEY (id)
 );
 
@@ -16,6 +17,12 @@ create table tStock (
 	product_id MEDIUMINT NOT NULL,
 	quantity MEDIUMINT NOT NULL,
 	PRIMARY KEY (product_id)
+);
+
+create table tCategory (
+	id MEDIUMINT NOT NULL,
+	name CHAR(30) NOT NULL,
+	PRIMARY KEY (id)
 );
 
 

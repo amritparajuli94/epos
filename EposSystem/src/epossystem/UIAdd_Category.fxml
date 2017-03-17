@@ -9,11 +9,18 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: GREY;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="epossystem.UISettingController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="50.0" prefHeight="41.0" prefWidth="182.0" text="SETTING" underline="true">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="219.0" layoutY="50.0" prefHeight="41.0" prefWidth="182.0" text="ADD CATEGORY" underline="true">
          <font>
             <Font name="System Bold" size="23.0" />
          </font>
       </Label>
       <Button fx:id="back" layoutX="24.0" layoutY="25.0" mnemonicParsing="false" onAction="#hanldeBackButtonAction" text="Back" />
+      <TextField fx:id="textfieldCategory" layoutX="310.0" layoutY="175.0" />
+      <Label layoutX="152.0" layoutY="175.0" text="CATEGORY NAME">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Button fx:id="add" layoutX="274.0" layoutY="253.0" mnemonicParsing="false" text="ADD" />
    </children>
 </AnchorPane>

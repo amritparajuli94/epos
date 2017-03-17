@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  *
  * @author Chandra
  */
-public class UISettingController implements Initializable {
+public class UIAdd_CategoryController implements Initializable {
 
     /**
      * Initializes the controller class.

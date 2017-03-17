@@ -12,21 +12,26 @@ import javafx.scene.control.Button;
  * @author Chandra
  */
 public class ProductButton extends Button {
-    
+
     private String name = null;
     private double price = 0.0;
-    Button addButton;
-    
-    public ProductButton(){
-        this.addButton = new Button();
-    };
-    
-    public Button getaddButton() {
-        return addButton;
+    private int productId = 0;
+
+    public ProductButton(int id, String name, double price, String text) {
+        super(text);
+        this.productId = id;
+        this.name = name;
+        this.price = price;
     }
-    public void setaddButton(Button addButton) {
-        this.addButton = addButton;
+
+    public int getProductId() {
+        return productId;
     }
+
+    public void setId(int productId) {
+        this.productId = productId;
+    }
+
     public String getName() {
         return name;
     }
@@ -42,5 +47,5 @@ public class ProductButton extends Button {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
 }
