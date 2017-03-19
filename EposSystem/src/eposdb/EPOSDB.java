@@ -11,19 +11,21 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Chandra
+
  */
 public class EPOSDB {
-
+    //attributes 
     private Connection eposDBConnection = null;
     private static final String USERNAME = "amrit";
     private static final String PASSWORD = "PhewaTaal007";
+    //host port of db
     private static final String CONN_STRING = "jdbc:mysql://localhost:3306/myepos";
 
     public Connection getDBConnection() throws SQLException {
         if (eposDBConnection == null) {
 
             try {
+                //connecting via provided username and password
                 Connection con = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
                 System.err.println("Connected");
                 eposDBConnection = con;

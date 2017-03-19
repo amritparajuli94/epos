@@ -31,6 +31,6 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
-      <ComboBox fx:id="cmbCategory" layoutX="209.0" layoutY="223.0" prefHeight="25.0" prefWidth="213.0" />
+      <ComboBox fx:id="categoryList" layoutX="209.0" layoutY="223.0" prefHeight="25.0" prefWidth="213.0" />
    </children>
 </AnchorPane>

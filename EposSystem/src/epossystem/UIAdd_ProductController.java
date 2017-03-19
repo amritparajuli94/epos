@@ -5,6 +5,7 @@
  */
 package epossystem;
 
+import datamodel.ProductQuantity;
 import eposdb.EPOSDB;
 import java.io.IOException;
 import java.net.URL;
@@ -16,19 +17,21 @@ import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author Chandra
  */
 public class UIAdd_ProductController implements Initializable {
 
@@ -48,15 +51,20 @@ public class UIAdd_ProductController implements Initializable {
     private Button back;
 
     @FXML
+    private ComboBox categoryList;
+
+    private Connection db;
+    EPOSDB eposdb = new EPOSDB();
+
+    @FXML
     private void hanldeAddButtonAction(ActionEvent event) throws IOException, SQLException {
 
+        //attributes
         String name = nameField.getText();
         double price = Double.parseDouble(priceField.getText());
 
-        EPOSDB eposdb = new EPOSDB();
-        Connection db;
         try {
-            db = eposdb.getDBConnection();
+
             System.out.println("Adding a new product..");
 
             String addProductSQL = "insert into tProduct (name, price) values (?, ?)";
@@ -77,7 +85,7 @@ public class UIAdd_ProductController implements Initializable {
                     addStockStatement.setInt(1, id);
                     addStockStatement.setInt(2, 0);
                     addStockStatement.execute();
-                    
+
                     nameField.setText("");
                     priceField.setText("");
                 }
@@ -101,7 +109,43 @@ public class UIAdd_ProductController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        ObservableList categories = FXCollections.observableArrayList();
+        try {
+            db = eposdb.getDBConnection();
+            String sql = "select id, name from tCategory;";
+            Statement statement = db.createStatement();
+            ResultSet rs = statement.executeQuery(sql);
+
+            while (rs.next()) {
+                //adding values to the right column on the db table.
+                categories.add(new Category(rs.getInt("id"), rs.getString("name")).getName());
+            }
+            System.out.println("Got Categories");
+        } catch (SQLException ex) {
+            Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        categoryList.getItems().addAll(categories);
+    }
+
+    private class Category {
+
+        private final int id;
+        private final String name;
+
+        public int getId() {
+            return id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public Category(int id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
     }
 
 }

@@ -19,7 +19,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Chandra
+ * 
  */
 public class UIMainController implements Initializable {
 
@@ -41,6 +41,7 @@ public class UIMainController implements Initializable {
     @FXML
     private Button pos;
 
+    
     @FXML
     private void hanldeProductsButtonAction(ActionEvent event) throws IOException {
 
@@ -60,7 +61,7 @@ public class UIMainController implements Initializable {
 
     }
     @FXML
-    private void hanldeSettingButtonAction(ActionEvent event) throws IOException {
+    private void handleAddCategoryButtonAction(ActionEvent event) throws IOException {
 
         Stage window = (Stage) addCategory.getScene().getWindow();
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIAdd_Category.fxml")));

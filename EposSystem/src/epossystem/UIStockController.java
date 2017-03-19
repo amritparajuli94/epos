@@ -35,7 +35,7 @@ import javafx.stage.Stage;
 /**
  * FXML Controller class
  *
- * @author Chandra
+ * 
  */
 public class UIStockController implements Initializable {
 
@@ -60,6 +60,7 @@ public class UIStockController implements Initializable {
     private ObservableList<ProductQuantity> products;
     private Connection db;
 
+    //action handler for Back Button to take back to main page
     @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
 
@@ -69,25 +70,31 @@ public class UIStockController implements Initializable {
         window.show();
     }
 
+    //action handler for Update Quantity Button
     @FXML
     private void handleUpdateQuantityButtonAction(ActionEvent event) throws SQLException, IOException {
         for (ProductQuantity p : products) {
+            //getting the current stock level
             int currentStock = p.getCurrentStock();
+            //setting value of new stock to 0
             int newStock = 0;
             String updateStockText = p.getUpdateStock().getText();
+            //when updatestocktext is not null, get the value of the new stock convert it
+            //to a int from string and add it to current stock.
             if (!"".equals(updateStockText)) {
                 newStock = Integer.parseInt(p.getUpdateStock().getText());
             }
             int updatedStock = currentStock + newStock;
             int productId = p.getProductId();
 
+            //setting a statement for a db to do.
             String updateSql = "update tStock set quantity=? where product_id=?";
             PreparedStatement ps = db.prepareStatement(updateSql);
             ps.setInt(1, updatedStock);
             ps.setInt(2, productId);
             ps.executeUpdate();
         }
-
+        //reloads the page with with Textfields
         Stage window = (Stage) updateQuantity.getScene().getWindow();
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIStock.fxml")));
         window.setScene(main);
@@ -113,12 +120,14 @@ public class UIStockController implements Initializable {
         EPOSDB eposdb = new EPOSDB();
         try {
             db = eposdb.getDBConnection();
-
+               
+            //setting a statement for a db to do.
             String sql = "select p.id, p.name, s.quantity from tProduct p join tStock s on p.id = s.product_id order by p.id;";
             Statement statement = db.createStatement();
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
+                //adding values to the right column on the db table.
                 products.add(new ProductQuantity(rs.getInt("id"), rs.getString("name"), rs.getInt("quantity")));
             }
             System.out.println(products);

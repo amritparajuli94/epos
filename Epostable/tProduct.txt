@@ -20,7 +20,7 @@ create table tStock (
 );
 
 create table tCategory (
-	id MEDIUMINT NOT NULL,
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
 	name CHAR(30) NOT NULL,
 	PRIMARY KEY (id)
 );

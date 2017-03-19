@@ -24,7 +24,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="addCategory" contentDisplay="CENTER" layoutX="436.0" layoutY="127.0" mnemonicParsing="false" onAction="#hanldeSettingButtonAction" prefHeight="44.0" prefWidth="112.0" text="ADD CATEGORY">
+      <Button fx:id="addCategory" contentDisplay="CENTER" layoutX="436.0" layoutY="127.0" mnemonicParsing="false" onAction="#handleAddCategoryButtonAction" prefHeight="44.0" prefWidth="112.0" text="ADD CATEGORY">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
