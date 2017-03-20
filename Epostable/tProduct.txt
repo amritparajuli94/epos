@@ -25,5 +25,14 @@ create table tCategory (
 	PRIMARY KEY (id)
 );
 
+create table tSale (
+	id MEDIUMINT NOT NULL AUTO_INCREMENT,
+	product_id MEDIUMINT NOT NULL,
+	date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	day_of_week TINYINT NOT NULL,
+	amount DECIMAL(12,2) NOT NULL,
+	PRIMARY KEY (id)
+);
+
 
 connecting to SQL: mysql -u amrit -p

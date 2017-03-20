@@ -14,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,44 +57,57 @@ public class UIAdd_ProductController implements Initializable {
     private Connection db;
     EPOSDB eposdb = new EPOSDB();
 
+    HashMap<String, Integer> categoriesMap;
+
     @FXML
     private void hanldeAddButtonAction(ActionEvent event) throws IOException, SQLException {
 
         //attributes
         String name = nameField.getText();
-        double price = Double.parseDouble(priceField.getText());
+        String priceInString = priceField.getText();
+        String category = (String) categoryList.getValue();
 
-        try {
+        if ("".equals(name) || "".equals(priceInString) || "".equals(category)) {
+            System.err.println("Invalid product name or product price");
+        } else {
+            double price = Double.parseDouble(priceInString);
 
-            System.out.println("Adding a new product..");
+            try {
 
-            String addProductSQL = "insert into tProduct (name, price) values (?, ?)";
-            PreparedStatement preparedStatement = db.prepareStatement(addProductSQL, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, name);
-            preparedStatement.setDouble(2, price);
-            if (preparedStatement.executeUpdate() == 0) {
-                throw new SQLException("Adding product failed");
-            } else {
-                System.out.println("Product " + name + " with price £" + price + " is added.");
-            }
-            try (ResultSet generatedId = preparedStatement.getGeneratedKeys()) {
-                if (generatedId.next()) {
-                    int id = generatedId.getInt(1);
-                    System.out.println("Generated ID: " + id);
-                    String addStockSQL = "insert into tStock (product_id, quantity) values (?, ?)";
-                    PreparedStatement addStockStatement = db.prepareStatement(addStockSQL);
-                    addStockStatement.setInt(1, id);
-                    addStockStatement.setInt(2, 0);
-                    addStockStatement.execute();
+                System.out.println("Adding a new product..");
 
-                    nameField.setText("");
-                    priceField.setText("");
+                System.err.println(category);
+                int category_id = categoriesMap.get(category);
+
+                String addProductSQL = "insert into tProduct (name, price, category_id) values (?, ?, ?)";
+                PreparedStatement preparedStatement = db.prepareStatement(addProductSQL, Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1, name);
+                preparedStatement.setDouble(2, price);
+                preparedStatement.setInt(3, category_id);
+                if (preparedStatement.executeUpdate() == 0) {
+                    throw new SQLException("Adding product failed");
+                } else {
+                    System.out.println("Product " + name + " with price £" + price + " is added.");
+                }
+                try (ResultSet generatedId = preparedStatement.getGeneratedKeys()) {
+                    if (generatedId.next()) {
+                        int id = generatedId.getInt(1);
+                        System.out.println("Generated ID: " + id);
+                        String addStockSQL = "insert into tStock (product_id, quantity) values (?, ?)";
+                        PreparedStatement addStockStatement = db.prepareStatement(addStockSQL);
+                        addStockStatement.setInt(1, id);
+                        addStockStatement.setInt(2, 0);
+                        addStockStatement.execute();
+
+                        nameField.setText("");
+                        priceField.setText("");
+                    }
+
                 }
 
+            } catch (SQLException ex) {
+                Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
             }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -109,7 +123,8 @@ public class UIAdd_ProductController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList categories = FXCollections.observableArrayList();
+        ObservableList categoriesName = FXCollections.observableArrayList();
+        categoriesMap = new HashMap<>();
         try {
             db = eposdb.getDBConnection();
             String sql = "select id, name from tCategory;";
@@ -118,34 +133,17 @@ public class UIAdd_ProductController implements Initializable {
 
             while (rs.next()) {
                 //adding values to the right column on the db table.
-                categories.add(new Category(rs.getInt("id"), rs.getString("name")).getName());
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                categoriesName.add(name);
+                categoriesMap.put(name, id);
             }
             System.out.println("Got Categories");
         } catch (SQLException ex) {
             Logger.getLogger(UIProductController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        categoryList.getItems().addAll(categories);
-    }
-
-    private class Category {
-
-        private final int id;
-        private final String name;
-
-        public int getId() {
-            return id;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public Category(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
+        categoryList.getItems().addAll(categoriesName);
     }
 
 }

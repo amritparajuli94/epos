@@ -16,12 +16,24 @@ public class ProductButton extends Button {
     private String name = null;
     private double price = 0.0;
     private int productId = 0;
+    private int remQuantity = 0;
 
-    public ProductButton(int id, String name, double price, String text) {
-        super(text);
+    public ProductButton(int id, String name, double price, int remQuantity) {
         this.productId = id;
         this.name = name;
         this.price = price;
+        this.remQuantity = remQuantity;
+        setButtonDetails();
+    }
+    
+    public void setButtonDetails() {
+        String text = name + ": " + price;
+        this.setText(text);
+        this.setMinWidth(150);
+        if (remQuantity == 0) {
+            System.out.println(remQuantity);
+            this.setDisable(true);
+        }
     }
 
     public int getProductId() {

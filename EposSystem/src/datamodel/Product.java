@@ -16,7 +16,6 @@ public class Product {
     private int id;
     private String name;
     private double price;
-    private ProductButton selectProduct;
 
     public Product(int id, String name, double price) {
         this.id = id;
@@ -42,13 +41,5 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public ProductButton getProductButton() {
-        return selectProduct;
-    }
-
-    public void setProductButton(ProductButton productButton) {
-        this.selectProduct = productButton;
     }
 }
