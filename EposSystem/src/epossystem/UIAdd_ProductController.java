@@ -66,7 +66,8 @@ public class UIAdd_ProductController implements Initializable {
         String name = nameField.getText();
         String priceInString = priceField.getText();
         String category = (String) categoryList.getValue();
-
+        
+        //setting a error message if user doesn't enter a value.
         if ("".equals(name) || "".equals(priceInString) || "".equals(category)) {
             System.err.println("Invalid product name or product price");
         } else {
@@ -79,6 +80,8 @@ public class UIAdd_ProductController implements Initializable {
                 System.err.println(category);
                 int category_id = categoriesMap.get(category);
 
+                //adding a new item to the product table
+                //setting a statement for database to follow.
                 String addProductSQL = "insert into tProduct (name, price, category_id) values (?, ?, ?)";
                 PreparedStatement preparedStatement = db.prepareStatement(addProductSQL, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1, name);
@@ -93,12 +96,15 @@ public class UIAdd_ProductController implements Initializable {
                     if (generatedId.next()) {
                         int id = generatedId.getInt(1);
                         System.out.println("Generated ID: " + id);
+                        //adding item to the stcok table
+                        //statement for database to follow
                         String addStockSQL = "insert into tStock (product_id, quantity) values (?, ?)";
                         PreparedStatement addStockStatement = db.prepareStatement(addStockSQL);
                         addStockStatement.setInt(1, id);
                         addStockStatement.setInt(2, 0);
                         addStockStatement.execute();
-
+                        
+                        //once sucessfully added, Textfielda are set empty again
                         nameField.setText("");
                         priceField.setText("");
                     }

@@ -52,7 +52,7 @@ public class UILoginController implements Initializable {
 
     @FXML
     private void hanldeLoginButtonAction(ActionEvent event) throws IOException, SQLException {
-
+        //attributes
         String username = usernameField.getText();
         String password = passwordField.getText();
 
@@ -62,6 +62,7 @@ public class UILoginController implements Initializable {
             db = eposdb.getDBConnection();
             System.out.println(username);
             System.out.println(password);
+            //statement for database to follow
             String sql = "select * from tuser where username='" + username + "' and password='" + password + "';";
             System.out.println(sql);
             Statement statement = db.createStatement();
@@ -71,8 +72,11 @@ public class UILoginController implements Initializable {
             if (false){
                 System.out.println("here");
                 wrongPasswordMsg.setText("You have entered invaild username or password.");
+                
+            //takes you to main window if you entered the right username and password
             } else {
                 Stage window = (Stage) login.getScene().getWindow();
+                //loading the page when login button is clicked.
                 Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIMain.fxml")));
                 window.setScene(main);
                 window.show();

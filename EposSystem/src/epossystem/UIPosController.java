@@ -67,6 +67,7 @@ public class UIPosController implements Initializable {
     int row = 0;
     private ArrayList<Product> saleProducts = new ArrayList<Product>();
 
+    //action handler for the back button
     @FXML
     private void hanldeBackButtonAction(ActionEvent event) throws IOException {
 
@@ -75,7 +76,7 @@ public class UIPosController implements Initializable {
         window.setScene(main);
         window.show();
     }
-
+    //action handler for the product button in pos window
     private void handleProductButtonAction(ActionEvent event) {
         ProductButton btn = (ProductButton) event.getTarget();
         Product sale = new Product(btn.getProductId(), btn.getName(), btn.getPrice());
@@ -115,7 +116,7 @@ public class UIPosController implements Initializable {
         //Connection db;
         try {
             db = eposdb.getDBConnection();
-
+            //setting a statement for database to follow
             String sql = "select p.id, p.name, p.price, s.quantity from tproduct p join tstock s on p.id = s.product_id order by id;";
             Statement statement = db.createStatement();
             ResultSet rs = statement.executeQuery(sql);

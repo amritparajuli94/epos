@@ -40,8 +40,11 @@ public class UIMainController implements Initializable {
 
     @FXML
     private Button pos;
-
     
+    @FXML
+    private Button ai;
+
+    //linking button from the main page to their  right window.
     @FXML
     private void hanldeProductsButtonAction(ActionEvent event) throws IOException {
 
@@ -49,8 +52,8 @@ public class UIMainController implements Initializable {
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIProduct.fxml")));
         window.setScene(main);
         window.show();
-
     }
+    
     @FXML
     private void hanldeAddProductButtonAction(ActionEvent event) throws IOException {
 
@@ -58,8 +61,8 @@ public class UIMainController implements Initializable {
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIAdd_Product.fxml")));
         window.setScene(main);
         window.show();
-
     }
+    
     @FXML
     private void handleAddCategoryButtonAction(ActionEvent event) throws IOException {
 
@@ -67,7 +70,6 @@ public class UIMainController implements Initializable {
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIAdd_Category.fxml")));
         window.setScene(main);
         window.show();
-
     }
     
     @FXML
@@ -77,8 +79,8 @@ public class UIMainController implements Initializable {
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIStock.fxml")));
         window.setScene(main);
         window.show();
-
     }
+    
     @FXML
     private void hanldePoSButtonAction(ActionEvent event) throws IOException {
 
@@ -86,7 +88,15 @@ public class UIMainController implements Initializable {
         Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIPos.fxml")));
         window.setScene(main);
         window.show();
+    }
+    
+    @FXML
+    private void hanldeAIButtonAction(ActionEvent event) throws IOException {
 
+        Stage window = (Stage) ai.getScene().getWindow();
+        Scene main = new Scene(FXMLLoader.load(getClass().getResource("UIAI.fxml")));
+        window.setScene(main);
+        window.show();
     }
     
 

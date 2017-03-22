@@ -29,12 +29,17 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="stock" contentDisplay="CENTER" layoutX="154.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldeStockButtonAction" prefHeight="44.0" prefWidth="100.0" text="STOCK">
+      <Button fx:id="stock" contentDisplay="CENTER" layoutX="54.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldeStockButtonAction" prefHeight="44.0" prefWidth="106.0" text="STOCK">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="pos" contentDisplay="CENTER" layoutX="348.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldePoSButtonAction" prefHeight="44.0" prefWidth="100.0" text="POS">
+      <Button fx:id="pos" contentDisplay="CENTER" layoutX="250.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldePoSButtonAction" prefHeight="44.0" prefWidth="106.0" text="POS">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="ai" layoutX="436.0" layoutY="245.0" mnemonicParsing="false" onAction="#hanldeAIButtonAction" prefHeight="44.0" prefWidth="112.0" text="AI">
          <font>
             <Font name="System Bold" size="12.0" />
          </font>
